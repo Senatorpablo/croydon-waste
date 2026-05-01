@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Croydon-born waste management. Local jobs, cleaner streets, zero landfill. Proud supporter of the Value Croydon programme." />
+<meta name="theme-color" content="#0f4c3a" />
+<title>[Your Company] — Built for Croydon. Run by Croydon.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --green-deep: #0f4c3a;
+    --green: #1a6b52;
+    --green-soft: #2d8b6c;
+    --lime: #d4ed7e;
+    --lime-bright: #b8e34a;
+    --cream: #f8f5ed;
+    --cream-warm: #f0ebdb;
+    --terracotta: #c47654;
+    --ink: #0d1410;
+    --ink-soft: #4a544f;
+    --line: rgba(15, 76, 58, 0.12);
+    --shadow-lg: 0 30px 70px -20px rgba(15, 76, 58, 0.3);
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--green-deep);
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(248, 245, 237, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px; max-width: 1240px; margin: 0 auto;
+  }
+  .logo {
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500;
+    color: var(--green-deep); display: flex; align-items: center;
+    gap: 12px; letter-spacing: -0.02em;
+  }
+  .logo-mark {
+    width: 40px; height: 40px; background: var(--green-deep);
+    border-radius: 12px; display: grid; place-items: center;
+    color: var(--lime); font-size: 20px; position: relative; overflow: hidden;
+  }
+  .logo-mark::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 50%, rgba(212, 237, 126, 0.15) 50%);
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--ink-soft); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green-deep); }
+  .nav-cta {
+    background: var(--green-deep); color: var(--cream) !important;
+    padding: 11px 22px; border-radius: 999px; font-weight: 600 !important;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--green); transform: translateY(-1px); }
+  @media (max-width: 768px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  .hero { padding: 70px 0 90px; position: relative; overflow: hidden; }
+  .hero-bg-shape {
+    position: absolute; top: -300px; right: -200px; width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(212, 237, 126, 0.4), transparent 65%);
+    border-radius: 50%; z-index: 0;
+  }
+  .hero-bg-shape-2 {
+    position: absolute; bottom: -150px; left: -100px; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(196, 118, 84, 0.15), transparent 70%);
+    border-radius: 50%; z-index: 0;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 70px;
+    align-items: center; position: relative; z-index: 1;
+  }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 50px; } }
+
+  .croydon-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--green-deep); color: var(--cream);
+padding: 10px 18px; border-radius: 999px; font-size: 13px;
+    font-weight: 600; margin-bottom: 32px; letter-spacing: 0.02em;
+  }
+  .croydon-badge .flag {
+    width: 18px; height: 12px; background: var(--lime);
+    border-radius: 2px; position: relative;
+  }
+  .croydon-badge .flag::after {
+    content: ''; position: absolute; inset: 2px;
+    background: var(--green-deep); border-radius: 1px;
+  }
+
+  h1.hero-title { font-size: clamp(44px, 7vw, 84px); margin-bottom: 28px; font-weight: 400; }
+  h1.hero-title em { font-style: italic; color: var(--terracotta); }
+  h1.hero-title .underline { position: relative; display: inline-block; }
+  h1.hero-title .underline::after {
+    content: ''; position: absolute; bottom: 4px; left: 0;
+    width: 100%; height: 8px; background: var(--lime); z-index: -1; border-radius: 4px;
+  }
+  .hero-sub {
+    font-size: 19px; color: var(--ink-soft); max-width: 540px;
+    margin-bottom: 40px; line-height: 1.5;
+  }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    padding: 17px 30px; border-radius: 999px; font-weight: 600;
+    font-size: 15px; transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--green-deep); color: var(--cream); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 35px -8px rgba(15, 76, 58, 0.45); }
+  .btn-secondary { background: transparent; color: var(--green-deep); border: 1.5px solid var(--green-deep); }
+  .btn-secondary:hover { background: var(--green-deep); color: var(--cream); }
+
+  .trust-row {
+    display: flex; gap: 32px; margin-top: 52px; flex-wrap: wrap;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--ink-soft); font-weight: 500;
+  }
+  .trust-item svg { flex-shrink: 0; color: var(--green-soft); }
+
+  .hero-collage { position: relative; aspect-ratio: 1 / 1.15; }
+  .collage-card { position: absolute; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+  .collage-1 {
+    top: 0; left: 0; width: 65%; height: 55%;
+    background: linear-gradient(135deg, var(--green-deep), var(--green));
+    padding: 28px; color: var(--cream);
+  }
+  .collage-1::before {
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(212, 237, 126, 0.4), transparent 70%);
+    border-radius: 50%;
+  }
+  .collage-1-content {
+    position: relative; z-index: 1; height: 100%;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .collage-1 .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.75; margin-bottom: 12px; }
+  .collage-1 h3 { font-family: 'Fraunces', serif; font-size: 32px; color: var(--cream); line-height: 1.1; font-style: italic; }
+  .collage-1 .stat { font-family: 'Fraunces', serif; font-size: 56px; color: var(--lime); font-weight: 500; line-height: 1; }
+  .collage-1 .stat-sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+  .collage-2 {
+    top: 8%; right: 0; width: 42%; height: 38%;
+    background: var(--lime); padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .collage-2 .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-deep); opacity: 0.7; font-weight: 600; }
+  .collage-2 h4 { font-family: 'Fraunces', serif; font-size: 24px; color: var(--green-deep); margin: 8px 0; line-height: 1.1; }
+  .collage-2 .pill {
+    display: inline-block; padding: 5px 12px;
+    background: var(--green-deep); color: var(--lime);
+    border-radius: 999px; font-size: 11px; font-weight: 600; align-self: flex-start;
+  }
+
+  .collage-3 {
+    bottom: 8%; left: 8%; width: 50%; height: 38%;
+    background: var(--cream-warm); padding: 24px; border: 1px solid var(--line);
+  }
+  .collage-3 .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.
+12em; color: var(--ink-soft); font-weight: 600; margin-bottom: 14px; }
+  .collage-3 h4 { font-family: 'Fraunces', serif; font-size: 22px; color: var(--green-deep); line-height: 1.2; margin-bottom: 14px; }
+  .collage-3 .testimonial-meta { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--green-soft)); }
+  .testimonial-meta .name { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .testimonial-meta .role { font-size: 11px; color: var(--ink-soft); }
+
+  .collage-4 {
+    bottom: 0; right: 5%; width: 38%; height: 32%;
+    background: var(--terracotta); padding: 22px; color: var(--cream);
+  }
+  .collage-4 .badge-num { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 500; color: var(--cream); line-height: 1; }
+  .collage-4 .badge-label { font-size: 12px; margin-top: 8px; opacity: 0.9; }
+  .collage-4 svg { margin-bottom: 12px; opacity: 0.7; }
+
+  .sv-bar {
+    background: var(--green-deep); color: var(--cream);
+    padding: 70px 0; position: relative; overflow: hidden;
+  }
+  .sv-bar::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); width: 100%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(212, 237, 126, 0.08), transparent 50%);
+  }
+  .sv-quote {
+    font-family: 'Fraunces', serif; font-size: clamp(22px, 3vw, 34px);
+    font-weight: 300; text-align: center; max-width: 900px;
+    margin: 0 auto; line-height: 1.3; font-style: italic;
+    position: relative; z-index: 1;
+  }
+  .sv-quote .accent { color: var(--lime); font-style: normal; }
+  .sv-attribution { text-align: center; margin-top: 20px; font-size: 13px; opacity: 0.7; letter-spacing: 0.05em; }
+
+  section { padding: 110px 0; }
+  .section-head { max-width: 760px; margin-bottom: 70px; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--green-soft); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 18px;
+  }
+  .section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--green-soft); }
+  h2.section-title { font-size: clamp(36px, 5vw, 60px); margin-bottom: 22px; }
+  h2.section-title em { font-style: italic; color: var(--terracotta); }
+  .section-lead { font-size: 19px; color: var(--ink-soft); line-height: 1.5; }
+
+  .commitments { background: var(--cream-warm); border-radius: 36px; margin: 0 28px; }
+  @media (max-width: 768px) { .commitments { margin: 0 12px; border-radius: 24px; } }
+  .sv-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    background: var(--line); border-radius: var(--radius); overflow: hidden;
+  }
+  @media (max-width: 900px) { .sv-grid { grid-template-columns: 1fr; } }
+  .sv-card { background: var(--cream); padding: 38px 32px; transition: all 0.3s; position: relative; }
+  .sv-card:hover { background: var(--green-deep); color: var(--cream); }
+  .sv-card:hover h3, .sv-card:hover p { color: var(--cream); }
+  .sv-card:hover .sv-num { color: var(--lime); }
+  .sv-num {
+    font-family: 'Fraunces', serif; font-size: 14px; color: var(--green-soft);
+    font-weight: 600; letter-spacing: 0.12em; margin-bottom: 14px;
+    display: block; transition: color 0.3s;
+  }
+  .sv-card h3 { font-size: 22px; margin-bottom: 14px; line-height: 1.2; transition: color 0.3s; }
+  .sv-card p { font-size: 14.5px; color: var(--ink-soft); transition: color 0.3s; }
+  .sv-icon { width: 44px; height: 44px; color: var(--green-deep); margin-bottom: 20px; transition: color 0.3s; }
+  .sv-card:hover .sv-icon { color: var(--lime); }
+
+  .promise {
+    background: var(--green-deep); color: var(--cream);
+    border-radius: 36px; margin: 0 28px; padding: 90px 50px;
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 768px) { .promise { margin: 0 12px; padding: 70px 28px; border-radius: 24px; } }
+  .promise::before {
+    content: ''; position: absolute; bottom: -200px; right: -100px;
+    width: 500px; height: 500px;
+background: radial-gradient(circle, rgba(212, 237, 126, 0.18), transparent 65%);
+    border-radius: 50%;
+  }
+  .promise::after {
+    content: ''; position: absolute; top: -100px; left: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(196, 118, 84, 0.15), transparent 70%);
+    border-radius: 50%;
+  }
+  .promise-content { position: relative; z-index: 1; }
+  .promise-head { text-align: center; margin-bottom: 70px; }
+  .promise-head h2 { color: var(--cream); font-size: clamp(36px, 5vw, 56px); max-width: 800px; margin: 0 auto; }
+  .promise-head h2 em { font-style: italic; color: var(--lime); }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; text-align: center; }
+  .stat-block { position: relative; }
+  .stat-block::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -25px;
+    width: 1px; background: rgba(247, 244, 237, 0.15);
+  }
+  .stat-block:first-child::before { display: none; }
+  @media (max-width: 768px) { .stat-block::before { display: none; } }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 400; color: var(--lime); line-height: 1; margin-bottom: 12px; font-style: italic; }
+  .stat-label { font-size: 14px; opacity: 0.85; line-height: 1.4; }
+
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  @media (max-width: 900px) { .how-grid { grid-template-columns: 1fr; } }
+  .how-card {
+    background: var(--cream); border: 1px solid var(--line);
+    padding: 40px; border-radius: var(--radius);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .how-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--green-soft); }
+  .how-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 60px; height: 4px; background: var(--lime); border-radius: 0 0 4px 0;
+  }
+  .how-card-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: var(--green-soft); text-transform: uppercase;
+    letter-spacing: 0.12em; margin-bottom: 16px;
+  }
+  .how-card h3 { font-size: 28px; margin-bottom: 16px; line-height: 1.15; }
+  .how-card p { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
+  .how-card ul { list-style: none; }
+  .how-card li {
+    font-size: 14px; color: var(--ink); padding: 10px 0;
+    border-top: 1px solid var(--line);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .how-card li::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--lime-bright); border-radius: 50%;
+    margin-top: 8px; flex-shrink: 0;
+  }
+
+  .story {
+    background: var(--cream); border-radius: 36px;
+    padding: 90px 50px; margin: 0 28px;
+    text-align: center; border: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 768px) { .story { margin: 0 12px; padding: 60px 28px; border-radius: 24px; } }
+  .story-quote-mark {
+    font-family: 'Fraunces', serif; font-size: 140px;
+    color: var(--lime); line-height: 1; margin-bottom: -20px; font-style: italic;
+  }
+  .story h2 {
+    font-size: clamp(28px, 3.5vw, 42px); max-width: 900px;
+    margin: 0 auto 36px; font-weight: 400; line-height: 1.25; font-style: italic;
+  }
+  .story-author {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 12px 22px; background: var(--cream-warm); border-radius: 999px;
+  }
+  .story-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--green-soft)); }
+  .story-author-info { text-align: left; }
+  .story-author-info .name { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .story-author-info .role { font-size: 12px; color: var(--ink-soft); }
+
+  .coverage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 40px; }
+  .postcode {
+    background: var(--cream); border: 1px solid var(--line);
+    padding: 16px 18px; border-radius: 12px; transition: all 0.2s;
+  }
+  .
+postcode:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
+  .postcode .code { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--green-deep); transition: color 0.2s; }
+  .postcode:hover .code { color: var(--lime); }
+  .postcode .area { font-size: 12px; color: var(--ink-soft); transition: color 0.2s; }
+  .postcode:hover .area { color: var(--cream); opacity: 0.8; }
+
+  .contact-section { background: var(--cream-warm); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: start; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .contact-info-item { display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .contact-info-item:last-child { border-bottom: none; }
+  .contact-info-icon {
+    width: 48px; height: 48px; background: var(--green-deep);
+    color: var(--lime); border-radius: 14px;
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .contact-info-label { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 4px; }
+  .contact-info-value { font-size: 18px; color: var(--green-deep); font-weight: 500; font-family: 'Fraunces', serif; }
+
+  .contact-form { background: var(--cream); padding: 44px; border-radius: var(--radius); border: 1px solid var(--line); }
+  .form-title { font-family: 'Fraunces', serif; font-size: 26px; color: var(--green-deep); margin-bottom: 8px; }
+  .form-sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--line); background: var(--cream);
+    border-radius: 10px; font-family: inherit; font-size: 15px;
+    color: var(--ink); transition: all 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--green-deep);
+    box-shadow: 0 0 0 3px rgba(15, 76, 58, 0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  .form-submit {
+    width: 100%; padding: 18px; background: var(--green-deep);
+    color: var(--cream); border: none; border-radius: 12px;
+    font-weight: 600; font-size: 15px; cursor: pointer;
+    transition: all 0.2s; margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--green); transform: translateY(-1px); }
+
+  footer { background: var(--green-deep); color: var(--cream); padding: 80px 0 40px; position: relative; overflow: hidden; }
+  footer::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(212, 237, 126, 0.08), transparent 70%);
+    border-radius: 50%;
+  }
+  .footer-tagline {
+    font-family: 'Fraunces', serif; font-size: clamp(36px, 5vw, 56px);
+    font-style: italic; color: var(--lime); max-width: 800px;
+    margin-bottom: 60px; line-height: 1.1; font-weight: 400; position: relative;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 50px; position: relative; }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+  footer h4 { color: var(--lime); font-family: 'Inter', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; margin-bottom: 22px; }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 12px; }
+  footer a { font-size: 14.5px; color: rgba(248, 245, 237, 0.75); transition: color 0.2s; }
+footer a:hover { color: var(--lime); }
+  .footer-brand p { color: rgba(248, 245, 237, 0.75); font-size: 14.5px; max-width: 360px; margin-top: 16px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(248, 245, 237, 0.15);
+    padding-top: 28px; display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px; font-size: 13px;
+    color: rgba(248, 245, 237, 0.55); position: relative;
+  }
+  .credentials { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .credential {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: rgba(212, 237, 126, 0.1);
+    color: var(--lime); border-radius: 999px; font-size: 12px;
+    font-weight: 500; border: 1px solid rgba(212, 237, 126, 0.2);
+  }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">♺</span>
+      [Your Company]
+    </a>
+    <div class="nav-links">
+      <a href="#commitment">Our commitment</a>
+      <a href="#services">Services</a>
+      <a href="#story">Our story</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#contact" class="nav-cta">Get a quote</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-shape-2"></div>
+  <div class="container hero-grid">
+    <div>
+      <span class="croydon-badge">
+        <span class="flag"></span>
+        Born in Croydon. Built for Croydon.
+      </span>
+      <h1 class="hero-title">Cleaner streets.<br>Local jobs. <em>Zero</em><br><span class="underline">to landfill.</span></h1>
+      <p class="hero-sub">We're a Croydon-based waste management company on a mission to make our borough greener, cleaner, and fairer — one collection at a time. Every contract creates local jobs through Croydon Works. Every load is tracked. Every penny stays in the community.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Work with us →</a>
+        <a href="#commitment" class="btn btn-secondary">Our Croydon promise</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Environment Agency licensed
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Value Croydon partner
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Real Living Wage employer
+        </div>
+      </div>
+    </div>
+<div class="hero-collage">
+  <div class="collage-card collage-1">
+    <div class="collage-1-content">
+      <div>
+        <div class="label">Our Croydon promise</div>
+        <h3>Local hires. Living wage. Always.</h3>
+      </div>
+      <div>
+        <div class="stat">100%</div>
+        <div class="stat-sub">Of our crew live in CR postcodes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collage-card collage-2">
+    <div>
+      <div class="label">SV6</div>
+      <h4>A cleaner, greener Croydon</h4>
+    </div>
+    <span class="pill">94% diverted</span>
+  </div>
+
+  <div class="collage-card collage-3">
+    <div class="label">Working with us</div>
+    <h4>"They turn up, they care, they keep our streets tidy."</h4>
+    <div class="testimonial-meta">
+      <div class="avatar"></div>
+      <div>
+        <div class="name">Local Estate Manager</div>
+        <div class="role">South Croydon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collage-card collage-4">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+    <div class="badge-num">12+</div>
+    <div class="badge-label">Local jobs created via Croydon Works</div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section class="sv-bar">
+  <div class="container">
+    <p class="sv-quote">
+      "Social Value is not a tick-box exercise; it is a true purpose and responsibility to <span class="accent">deliver and give back</span> to Croydon residents and businesses."
+    </p>
+    <p class="sv-attribution">— A principle we live by every day</p>
+  </div>
+</section>
+
+<section class="commitments" id="commitment">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Our Croydon commitment</div>
+      <h2 class="section-title">Six promises. <em>One borough.</em></h2>
+      <p class="section-lead">We've built our entire business around the Council's six Social Value themes. Not because we have to — because Croydon raised us, and we believe in giving back to the place we call home.</p>
+    </div>
+<div class="sv-grid">
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    <span class="sv-num">SV1 — Jobs & Skills</span>
+    <h3>Local jobs for local people.</h3>
+    <p>Every new contract creates apprenticeships and full-time roles recruited exclusively through Croydon Works. We pay the Real Living Wage from day one — no exceptions.</p>
+  </div>
+
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V10l7-7 7 7v11M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+    <span class="sv-num">SV2 — Growth</span>
+    <h3>Croydon SMEs in our supply chain.</h3>
+    <p>From the garage that services our vehicles to the printer for our paperwork — we buy local first. Over 80% of our suppliers are Croydon SMEs.</p>
+  </div>
+
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    <span class="sv-num">SV3 — Health & Wellbeing</span>
+    <h3>Mental health first. Always.</h3>
+    <p>Mental Health First Aid trained team. Free counselling for staff. We sponsor Croydon community wellbeing events year-round.</p>
+  </div>
+
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+    <span class="sv-num">SV4 — Equality</span>
+    <h3>Reflecting Croydon's diversity.</h3>
+    <p>Our team mirrors our borough. We actively recruit from groups underrepresented in the waste industry, including people rebuilding their lives after challenges.</p>
+  </div>
+
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span class="sv-num">SV5 — Stronger Communities</span>
+    <h3>We give back. Visibly.</h3>
+    <p>Free fly-tip clearance for community groups, schools and TRAs. We've cleared over 40 sites for free since launching — and we're just getting started.</p>
+  </div>
+
+  <div class="sv-card reveal">
+    <svg class="sv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 0118 0M3 12a9 9 0 0018 0"/><path d="M12 3v18M3 12h18"/></svg>
+    <span class="sv-num">SV6 — Cleaner & Greener</span>
+<h3>Zero to landfill. Net zero by 2030.</h3>
+    <p>94% of waste diverted from landfill today. We're investing in electric tippers and HVO biofuel to hit net zero ahead of Croydon's own 2030 target.</p>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section style="padding: 70px 0;">
+  <div class="container">
+    <div class="promise reveal">
+      <div class="promise-content">
+        <div class="promise-head">
+          <h2>The numbers <em>that matter</em> to Croydon.</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-block">
+            <div class="stat-num">94%</div>
+            <div class="stat-label">Of waste diverted from landfill — and rising</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Of our crew live in CR postcodes</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">£1.2m</div>
+            <div class="stat-label">Spent with Croydon SME suppliers last year</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">2030</div>
+            <div class="stat-label">Net zero target — aligned with Croydon's</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">What we do</div>
+      <h2 class="section-title">Two services. <em>One standard.</em></h2>
+      <p class="section-lead">Whether you're a council partner, a private estate, or a household — we deliver the same paperwork, the same crew, the same care.</p>
+    </div>
+<div class="how-grid">
+  <div class="how-card reveal">
+    <span class="how-card-tag">For the Council & Public Sector</span>
+    <h3>Framework-ready partner for Croydon Council contracts.</h3>
+    <p>We're built from the ground up to meet Procurement Act 2023, Social Value, and CDP requirements. Quarterly Social Value reporting included as standard.</p>
+    <ul>
+      <li>Bulky waste, fly-tip clearance, void property work</li>
+      <li>Trade waste collections for council-managed assets</li>
+      <li>Monthly Social Value dashboards (jobs, recycling rates, community hours)</li>
+      <li>Full integration with Croydon's Oracle supplier system</li>
+      <li>CHAS / SafeContractor / Constructionline accredited</li>
+    </ul>
+  </div>
+
+  <div class="how-card reveal">
+    <span class="how-card-tag">For Businesses & Residents</span>
+    <h3>Reliable, transparent, properly priced.</h3>
+    <p>Trade waste contracts, house clearances, builder's waste, office strip-outs. No call-out fees, no hidden charges, and Waste Transfer Notes by email after every collection.</p>
+    <ul>
+      <li>Same-day collection across all CR postcodes</li>
+      <li>Fixed monthly trade waste contracts (no surprises)</li>
+      <li>Photo-quote in 15 minutes via WhatsApp</li>
+      <li>Free fly-tip removal for residents' associations</li>
+      <li>£10m public liability insurance</li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section style="padding: 60px 0;">
+  <div class="container">
+    <div class="story reveal" id="story">
+      <div class="story-quote-mark">"</div>
+      <h2>We grew up here. We went to school here. We raise our kids here. When you hire us, you're not just paying for a waste collection — you're putting money back into the community that built us.</h2>
+      <div class="story-author">
+        <div class="story-avatar"></div>
+        <div class="story-author-info">
+          <div class="name">[Your Name], Founder</div>
+          <div class="role">[Your Company] · Croydon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="coverage">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Where we serve</div>
+      <h2 class="section-title">Every corner of <em>our borough.</em></h2>
+      <p class="section-lead">Same-day collection across all Croydon postcodes.
+We know every estate, every high street, every back alley — because we live here.</p>
+    </div>
+<div class="coverage-grid reveal">
+  <div class="postcode"><div class="code">CR0</div><div class="area">Croydon, Addiscombe</div></div>
+  <div class="postcode"><div class="code">CR2</div><div class="area">South Croydon, Sanderstead</div></div>
+  <div class="postcode"><div class="code">CR3</div><div class="area">Caterham, Whyteleafe</div></div>
+  <div class="postcode"><div class="code">CR4</div><div class="area">Mitcham</div></div>
+  <div class="postcode"><div class="code">CR5</div><div class="area">Coulsdon, Old Coulsdon</div></div>
+  <div class="postcode"><div class="code">CR6</div><div class="area">Warlingham</div></div>
+  <div class="postcode"><div class="code">CR7</div><div class="area">Thornton Heath</div></div>
+  <div class="postcode"><div class="code">CR8</div><div class="area">Purley, Kenley</div></div>
+  <div class="postcode"><div class="code">SE25</div><div class="area">South Norwood</div></div>
+  <div class="postcode"><div class="code">SE19</div><div class="area">Crystal Palace</div></div>
+  <div class="postcode"><div class="code">SE20</div><div class="area">Penge, Anerley</div></div>
+  <div class="postcode"><div class="code">BR3</div><div class="area">Beckenham</div></div>
+</div>
+
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-head reveal" style="text-align: center; margin: 0 auto 60px;">
+      <div class="section-eyebrow" style="justify-content: center;">Get in touch</div>
+      <h2 class="section-title">Let's clean up Croydon, <em>together.</em></h2>
+      <p class="section-lead">Whether you're a council officer, business owner, or Croydon resident — drop us a line. We respond to every enquiry within 15 minutes during working hours.</p>
+    </div>
+<div class="contact-grid">
+  <div>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div>
+        <div class="contact-info-label">Direct line</div>
+        <div class="contact-info-value">020 0000 0000</div>
+      </div>
+    </div>
+
+    <div class="contact-info-item">
+      <div class="contact-info-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      </div>
+      <div>
+        <div class="contact-info-label">WhatsApp (photos welcome)</div>
+        <div class="contact-info-value">07000 000 000</div>
+      </div>
+    </div>
+
+    <div class="contact-info-item">
+      <div class="contact-info-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <div class="contact-info-label">Council & tenders</div>
+        <div class="contact-info-value">tenders@yourcompany.co.uk</div>
+      </div>
+    </div>
+
+    <div class="contact-info-item">
+      <div class="contact-info-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div class="contact-info-label">Office</div>
+        <div class="contact-info-value">[Your address], Croydon</div>
+      </div>
+    </div>
+
+    <div class="contact-info-item">
+      <div class="contact-info-icon">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+      </div>
+      <div>
+        <div class="contact-info-label">Operations hours</div>
+        <div class="contact-info-value">7am – 8pm, 7 days a week</div>
+      </div>
+    </div>
+  </div>
+
+  <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch within 15 minutes.'); this.reset();">
+    <div class="form-title">Tell us what you need</div>
+    <p class="form-sub">We typically reply within 15 minutes during business hours.</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="org">Organisation (if any)</label>
+        <input type="text" id="org" placeholder="e.g. Croydon Council" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" required />
+      </div>
+      <div class="form-group">
+        <label for="postcode">Postcode</label>
+        <input type="text" id="postcode" placeholder="CR0..." required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="enquiry-type">I'm enquiring about</label>
+      <select id="enquiry-type">
+        <option>Council / public sector contract</option>
+        <option>Trade waste contract for my business</option>
+        <option>Domestic / house clearance</option>
+        <option>Builder / site waste</option>
+        <option>Same-day emergency clearance</option>
+        <option>Free community fly-tip clearance</option>
+        <option>Partnership / other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="details">Tell us a bit more</label>
+      <textarea id="details" placeholder="What needs clearing? When? Any access notes?"></textarea>
+    </div>
+
+    <button type="submit" class="form-submit">Send my enquiry →</button>
+  </form>
+</div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-tagline">
+      Built in Croydon.<br>For Croydon.
+    </div>
+<div class="footer-grid">
+  <div class="footer-brand">
+    <div class="logo" style="color: var(--cream);">
+      <span class="logo-mark">♺</span>
+      [Your Company]
+    </div>
+    <p>A licensed, insured Croydon-based waste management company. Proud Value Croydon partner committed to local jobs, zero landfill, and a cleaner borough.</p>
+    <div class="credentials">
+      <div class="credential">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        EA: CBDU000000
+      </div>
+      <div class="credential">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        CHAS Accredited
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#services">Trade waste</a></li>
+      <li><a href="#services">House clearance</a></li>
+      <li><a href="#services">Builder waste</a></li>
+      <li><a href="#services">Office strip-outs</a></li>
+      <li><a href="#services">Council contracts</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <h4>Croydon</h4>
+    <ul>
+      <li><a href="#commitment">Our commitment</a></li>
+      <li><a href="#story">Our story</a></li>
+      <li><a href="#coverage">Coverage areas</a></li>
+      <li><a href="https://valuecroydon.com" target="_blank" rel="noopener">Value Croydon ↗</a></li>
+      <li><a href="#">Social Value report</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <h4>Get in touch</h4>
+    <ul>
+      <li><a href="#contact">Get a quote</a></li>
+      <li><a href="mailto:tenders@yourcompany.co.uk">Council tenders</a></li>
+      <li><a href="tel:+442000000000">020 0000 0000</a></li>
+<li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div>© 2026 [Your Company] Ltd. Registered in England · Company No. 00000000</div>
+  <div>Made with care, in Croydon.</div>
+</div>
+
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
