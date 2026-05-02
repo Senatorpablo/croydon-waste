@@ -6,6 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Croydon-born waste management. Local jobs, cleaner streets, zero landfill. Proud supporter of the Value Croydon programme." />
 <meta name="theme-color" content="#0f4c3a" />
+<meta property="og:title" content="[Your Company] — Built for Croydon. Run by Croydon." />
+<meta property="og:description" content="Croydon-born waste management. Local jobs, cleaner streets, zero landfill. Proud supporter of the Value Croydon programme." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://senatorpablo.github.io/croydon-waste/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f4c3a'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='%23d4ed7e'>♺</text></svg>" />
 <title>[Your Company] — Built for Croydon. Run by Croydon.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -919,35 +924,35 @@ We know every estate, every high street, every back alley — because we live he
     </div>
   </div>
 
-  <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch within 15 minutes.'); this.reset();">
+  <form class="contact-form" action="https://formspree.io/f/yourformid" method="POST">
     <div class="form-title">Tell us what you need</div>
     <p class="form-sub">We typically reply within 15 minutes during business hours.</p>
 
     <div class="form-row">
       <div class="form-group">
         <label for="name">Your name</label>
-        <input type="text" id="name" required />
+        <input type="text" name="name" id="name" required />
       </div>
       <div class="form-group">
         <label for="org">Organisation (if any)</label>
-        <input type="text" id="org" placeholder="e.g. Croydon Council" />
+        <input type="text" name="organisation" id="org" placeholder="e.g. Croydon Council" />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label for="phone">Phone</label>
-        <input type="tel" id="phone" required />
+        <input type="tel" name="phone" id="phone" required />
       </div>
       <div class="form-group">
         <label for="postcode">Postcode</label>
-        <input type="text" id="postcode" placeholder="CR0..." required />
+        <input type="text" name="postcode" id="postcode" placeholder="CR0..." required />
       </div>
     </div>
 
     <div class="form-group">
       <label for="enquiry-type">I'm enquiring about</label>
-      <select id="enquiry-type">
+      <select name="enquiry-type" id="enquiry-type">
         <option>Council / public sector contract</option>
         <option>Trade waste contract for my business</option>
         <option>Domestic / house clearance</option>
@@ -960,7 +965,7 @@ We know every estate, every high street, every back alley — because we live he
 
     <div class="form-group">
       <label for="details">Tell us a bit more</label>
-      <textarea id="details" placeholder="What needs clearing? When? Any access notes?"></textarea>
+      <textarea name="details" id="details" placeholder="What needs clearing? When? Any access notes?"></textarea>
     </div>
 
     <button type="submit" class="form-submit">Send my enquiry →</button>
@@ -1012,7 +1017,7 @@ We know every estate, every high street, every back alley — because we live he
       <li><a href="#story">Our story</a></li>
       <li><a href="#coverage">Coverage areas</a></li>
       <li><a href="https://valuecroydon.com" target="_blank" rel="noopener">Value Croydon ↗</a></li>
-      <li><a href="#">Social Value report</a></li>
+      <li><a href="#commitment">Social Value report</a></li>
     </ul>
   </div>
 
@@ -1022,8 +1027,8 @@ We know every estate, every high street, every back alley — because we live he
       <li><a href="#contact">Get a quote</a></li>
       <li><a href="mailto:tenders@yourcompany.co.uk">Council tenders</a></li>
       <li><a href="tel:+442****0000">020 0000 0000</a></li>
-<li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
+<li><a href="#contact">Privacy policy</a></li>
+      <li><a href="#contact">Terms of service</a></li>
     </ul>
   </div>
 </div>
