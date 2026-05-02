@@ -188,8 +188,7 @@ padding: 10px 18px; border-radius: 999px; font-size: 13px;
     bottom: 8%; left: 8%; width: 50%; height: 38%;
     background: var(--cream-warm); padding: 24px; border: 1px solid var(--line);
   }
-  .collage-3 .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.
-12em; color: var(--ink-soft); font-weight: 600; margin-bottom: 14px; }
+  .collage-3 .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); font-weight: 600; margin-bottom: 14px; }
   .collage-3 h4 { font-family: 'Fraunces', serif; font-size: 22px; color: var(--green-deep); line-height: 1.2; margin-bottom: 14px; }
   .collage-3 .testimonial-meta { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
   .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--green-soft)); }
@@ -322,10 +321,11 @@ background: radial-gradient(circle, rgba(212, 237, 126, 0.18), transparent 65%);
   /* ── Globe Section ──────────────────────────── */
   .globe-section {
     background: #0a1f17; color: var(--cream);
-    padding: 80px 0; position: relative; overflow: hidden;
+    padding: 80px 0 100px; position: relative; overflow: hidden;
   }
   .globe-wrapper {
     display: flex; flex-direction: column; align-items: center; gap: 40px;
+    position: relative;
   }
   .globe-headline {
     font-family: 'Fraunces', Georgia, serif;
@@ -337,13 +337,119 @@ background: radial-gradient(circle, rgba(212, 237, 126, 0.18), transparent 65%);
   .globe-headline em { color: var(--lime); font-style: normal; }
   .globe-svg { cursor: grab; }
   .globe-svg:active { cursor: grabbing; }
-  .globe-stats {
-    display: flex; gap: 50px; flex-wrap: wrap; justify-content: center;
+
+  /* ── Filter Chips ──────────────────────────── */
+  .globe-filters {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 50px;
   }
-  .globe-stat { text-align: center; }
-  .globe-stat-num { font-family: 'Fraunces', Georgia, serif; font-size: 42px; color: var(--lime); font-style: italic; }
-  .globe-stat-label { font-size: 12px; color: rgba(248,245,237,0.5); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
-  @media (max-width: 600px) { .globe-stats { gap: 24px; } }
+  .globe-filter-chip {
+    padding: 10px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    border: 1px solid rgba(212,237,126,0.3);
+    color: rgba(248,245,237,0.7);
+    background: transparent;
+    transition: all 0.25s;
+    font-family: 'Inter', sans-serif;
+  }
+  .globe-filter-chip:hover {
+    border-color: var(--lime); color: var(--lime);
+    background: rgba(212,237,126,0.08);
+  }
+  .globe-filter-chip.active {
+    background: var(--lime); color: #0a1f17;
+    border-color: var(--lime); font-weight: 600;
+  }
+
+  /* ── Counter Row ──────────────────────────── */
+  .globe-counters {
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 50px;
+  }
+  @media (max-width: 600px) { .globe-counters { gap: 24px; } }
+  .globe-counter { text-align: center; }
+  .globe-counter-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 42px; color: var(--lime); font-style: italic; font-weight: 400;
+    line-height: 1;
+  }
+  .globe-counter-num.pct { color: var(--terracotta); }
+  .globe-counter-label {
+    font-size: 12px; color: rgba(248,245,237,0.5);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-top: 6px;
+  }
+
+  /* ── Detail Card ──────────────────────────── */
+  .globe-detail-overlay {
+    position: absolute; top: 10px; right: 20px; z-index: 20;
+    max-width: 340px; pointer-events: none; opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  @media (max-width: 768px) {
+    .globe-detail-overlay {
+      position: relative; top: auto; right: auto; max-width: 100%;
+      margin: 0 16px;
+    }
+  }
+  .globe-detail-overlay.visible {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  .globe-detail-card {
+    background: rgba(10,31,23,0.95);
+    border: 1px solid rgba(212,237,126,0.25);
+    border-radius: 16px; padding: 24px;
+    backdrop-filter: blur(10px);
+  }
+  .globe-detail-card .city-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 24px; font-style: italic; color: var(--lime);
+    margin-bottom: 4px; font-weight: 400;
+  }
+  .globe-detail-card .city-role {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(248,245,237,0.5); font-weight: 600; margin-bottom: 16px;
+  }
+  .globe-detail-card .city-metric {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 36px; color: var(--cream); font-style: italic; line-height: 1;
+    margin-bottom: 4px;
+  }
+  .globe-detail-card .city-metric-label {
+    font-size: 12px; color: rgba(248,245,237,0.5); margin-bottom: 16px;
+  }
+  .globe-detail-card .city-info {
+    font-size: 13px; color: rgba(248,245,237,0.75); line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .globe-detail-card .city-extra {
+    display: flex; gap: 20px; font-size: 11px;
+    color: rgba(248,245,237,0.45); text-transform: uppercase;
+    letter-spacing: 0.08em; border-top: 1px solid rgba(212,237,126,0.1);
+    padding-top: 12px;
+  }
+  .globe-detail-card .city-extra span { display: block; }
+  .globe-detail-card .city-extra strong { color: var(--lime); font-weight: 500; display: block; font-size: 15px; font-family: 'Fraunces', serif; margin-top: 2px; }
+  .globe-detail-close {
+    position: absolute; top: 12px; right: 16px;
+    background: none; border: none; color: rgba(248,245,237,0.5);
+    font-size: 18px; cursor: pointer; padding: 4px 8px;
+  }
+  .globe-detail-close:hover { color: var(--lime); }
+
+  /* ── Live Ticker ──────────────────────────── */
+  .globe-ticker {
+    margin-top: 40px; display: flex; align-items: center; justify-content: center; gap: 12px;
+    font-size: 13px; color: rgba(248,245,237,0.6); font-family: 'Inter', sans-serif;
+  }
+  .globe-ticker-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #e74c3c;
+    flex-shrink: 0; animation: tickerPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes tickerPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(231,76,60,0.6); }
+    50%      { opacity: 0.5; box-shadow: 0 0 0 8px rgba(231,76,60,0); }
+  }
 
   .story {
     background: var(--cream); border-radius: 36px;
@@ -374,8 +480,7 @@ background: radial-gradient(circle, rgba(212, 237, 126, 0.18), transparent 65%);
     background: var(--cream); border: 1px solid var(--line);
     padding: 16px 18px; border-radius: 12px; transition: all 0.2s;
   }
-  .
-postcode:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
+.postcode:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
   .postcode .code { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--green-deep); transition: color 0.2s; }
   .postcode:hover .code { color: var(--lime); }
   .postcode .area { font-size: 12px; color: var(--ink-soft); transition: color 0.2s; }
@@ -469,6 +574,7 @@ footer a:hover { color: var(--lime); }
       [Your Company]
     </a>
     <div class="nav-links">
+      <a href="#globe">Our network</a>
       <a href="#commitment">Our commitment</a>
       <a href="#services">Services</a>
       <a href="#story">Our story</a>
@@ -552,6 +658,59 @@ footer a:hover { color: var(--lime); }
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════
+     GLOBE SECTION — 2nd thing people see
+     ═══════════════════════════════════════════════════════ -->
+<section class="globe-section" id="globe">
+  <div class="container">
+
+    <!-- Filter chips -->
+    <div class="globe-filters reveal" id="globe-filters">
+      <button class="globe-filter-chip active" data-filter="all">All routes</button>
+      <button class="globe-filter-chip" data-filter="local">Local boroughs</button>
+      <button class="globe-filter-chip" data-filter="uk">UK recycling</button>
+      <button class="globe-filter-chip" data-filter="haz">Hazardous waste</button>
+    </div>
+
+    <!-- Counters -->
+    <div class="globe-counters reveal" id="globe-counters">
+      <div class="globe-counter">
+        <div class="globe-counter-num" id="counter-collections">0</div>
+        <div class="globe-counter-label">Collections completed</div>
+      </div>
+      <div class="globe-counter">
+        <div class="globe-counter-num pct" id="counter-diverted">0%</div>
+        <div class="globe-counter-label">Diverted from landfill</div>
+      </div>
+      <div class="globe-counter">
+        <div class="globe-counter-num" id="counter-partners">0</div>
+        <div class="globe-counter-label">UK partner cities</div>
+      </div>
+    </div>
+
+    <div class="globe-wrapper">
+      <div class="globe-headline reveal">
+        Where <em>Croydon's waste</em> goes
+      </div>
+
+      <!-- Detail card -->
+      <div class="globe-detail-overlay" id="globe-detail-overlay">
+        <button class="globe-detail-close" id="globe-detail-close" aria-label="Close">✕</button>
+        <div class="globe-detail-card" id="globe-detail-card"></div>
+      </div>
+
+      <svg id="globe-svg" class="globe-svg"></svg>
+    </div>
+
+    <!-- Live ticker -->
+    <div class="globe-ticker reveal" id="globe-ticker">
+      <span class="globe-ticker-dot"></span>
+      <span id="ticker-text">Crew loading in CR0 — 2 mins ago</span>
+    </div>
+
+  </div>
+</section>
+
 <section class="sv-bar">
   <div class="container">
     <p class="sv-quote">
@@ -612,22 +771,6 @@ footer a:hover { color: var(--lime); }
   </div>
 </div>
 
-  </div>
-</section>
-
-<section class="globe-section" id="globe">
-  <div class="container">
-    <div class="globe-wrapper">
-      <div class="globe-headline reveal">
-        Where <em>Croydon's waste</em> goes
-      </div>
-      <svg id="globe-svg" class="globe-svg"></svg>
-      <div class="globe-stats reveal">
-        <div class="globe-stat"><div class="globe-stat-num">94%</div><div class="globe-stat-label">Diverted from landfill</div></div>
-        <div class="globe-stat"><div class="globe-stat-num">12</div><div class="globe-stat-label">Recycling partners</div></div>
-        <div class="globe-stat"><div class="globe-stat-num">6</div><div class="globe-stat-label">Continents reached</div></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -873,7 +1016,7 @@ We know every estate, every high street, every back alley — because we live he
     <ul>
       <li><a href="#contact">Get a quote</a></li>
       <li><a href="mailto:tenders@yourcompany.co.uk">Council tenders</a></li>
-      <li><a href="tel:+442000000000">020 0000 0000</a></li>
+      <li><a href="tel:+442****0000">020 0000 0000</a></li>
 <li><a href="#">Privacy</a></li>
       <li><a href="#">Terms</a></li>
     </ul>
@@ -889,136 +1032,493 @@ We know every estate, every high street, every back alley — because we live he
 </footer>
 
 <script>
-  // ── Interactive Globe ──────────────────────────────
-  (async () => {
-    const svg = d3.select("#globe-svg");
-    if (svg.empty()) return;
-    const width = Math.min(window.innerWidth * 0.85, 700);
-    const height = width;
-    svg.attr("width", width).attr("height", height);
+// ═══════════════════════════════════════════════════════
+// INTERACTIVE GLOBE — v2.0
+// All 6 features: fly-to, detail cards, hover, filters,
+// counters, live ticker
+// ═══════════════════════════════════════════════════════
+(async () => {
+  const svg = d3.select("#globe-svg");
+  if (svg.empty()) return;
+  const width = Math.min(window.innerWidth * 0.85, 700);
+  const height = width;
+  svg.attr("width", width).attr("height", height);
 
-    const defs = svg.append("defs");
-    const glowFilter = defs.append("filter").attr("id", "arcGlow");
-    glowFilter.append("feGaussianBlur").attr("stdDeviation", "3").attr("result", "blur");
-    glowFilter.append("feMerge").selectAll("feMergeNode").data(["blur","SourceGraphic"])
-      .enter().append("feMergeNode").attr("in", d => d);
+  // ── Defs ──────────────────────────────────────────
+  const defs = svg.append("defs");
+  const glowFilter = defs.append("filter").attr("id", "arcGlow");
+  glowFilter.append("feGaussianBlur").attr("stdDeviation", "3").attr("result", "blur");
+  glowFilter.append("feMerge").selectAll("feMergeNode").data(["blur","SourceGraphic"])
+    .enter().append("feMergeNode").attr("in", d => d);
 
-    const atmFilter = defs.append("filter").attr("id", "atmosphere");
-    atmFilter.append("feGaussianBlur").attr("stdDeviation", "18");
+  const atmFilter = defs.append("filter").attr("id", "atmosphere");
+  atmFilter.append("feGaussianBlur").attr("stdDeviation", "18");
 
-    const atmGrad = defs.append("radialGradient").attr("id", "atmGrad");
-    atmGrad.append("stop").attr("offset","0%").attr("stop-color","#d4ed7e").attr("stop-opacity",0.25);
-    atmGrad.append("stop").attr("offset","60%").attr("stop-color","#1a6b52").attr("stop-opacity",0.08);
-    atmGrad.append("stop").attr("offset","100%").attr("stop-color","#0a1f17").attr("stop-opacity",0);
+  const atmGrad = defs.append("radialGradient").attr("id", "atmGrad");
+  atmGrad.append("stop").attr("offset","0%").attr("stop-color","#d4ed7e").attr("stop-opacity",0.25);
+  atmGrad.append("stop").attr("offset","60%").attr("stop-color","#1a6b52").attr("stop-opacity",0.08);
+  atmGrad.append("stop").attr("offset","100%").attr("stop-color","#0a1f17").attr("stop-opacity",0);
 
-    const cx = width/2, cy = height/2;
-    const projection = d3.geoOrthographic().scale(width*0.35).translate([cx,cy]).rotate([-0.1,-51.3,0]);
-    const path = d3.geoPath(projection);
+  const cx = width/2, cy = height/2;
+  const projection = d3.geoOrthographic().scale(width*0.35).translate([cx,cy]).rotate([-0.1,-51.3,0]);
+  const path = d3.geoPath(projection);
 
-    svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",width*0.38)
-      .attr("fill","url(#atmGrad)").attr("filter","url(#atmosphere)");
-    svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",projection.scale())
-      .attr("fill","#0f2a20").attr("stroke","rgba(212,237,126,0.15)").attr("stroke-width",1);
+  // ── Atmosphere + base circle ──────────────────────
+  svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",width*0.38)
+    .attr("fill","url(#atmGrad)").attr("filter","url(#atmosphere)");
+  svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",projection.scale())
+    .attr("fill","#0f2a20").attr("stroke","rgba(212,237,126,0.15)").attr("stroke-width",1);
 
-    const world = await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
-    const land = topojson.feature(world, world.objects.land);
-    const landPath = svg.append("path").datum(land)
-      .attr("fill","#153a2b").attr("stroke","rgba(212,237,126,0.08)").attr("stroke-width",0.5);
+  // ── Land ──────────────────────────────────────────
+  const world = await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
+  const land = topojson.feature(world, world.objects.land);
+  const landPath = svg.append("path").datum(land)
+    .attr("fill","#153a2b").attr("stroke","rgba(212,237,126,0.08)").attr("stroke-width",0.5);
 
-    const graticule = d3.geoGraticule();
-    svg.append("path").datum(graticule).attr("fill","none")
-      .attr("stroke","rgba(212,237,126,0.05)").attr("stroke-width",0.3);
+  // ── Graticule ─────────────────────────────────────
+  const graticule = d3.geoGraticule();
+  svg.append("path").datum(graticule).attr("fill","none")
+    .attr("stroke","rgba(212,237,126,0.05)").attr("stroke-width",0.3);
 
-    const cities = [
-      {name:"Croydon",lat:51.376,lng:-0.098},{name:"Purfleet",lat:51.487,lng:0.237},
-      {name:"Brentford",lat:51.487,lng:-0.306},{name:"Rotterdam",lat:51.924,lng:4.478},
-      {name:"Antwerp",lat:51.219,lng:4.402},{name:"Hamburg",lat:53.551,lng:9.994},
-      {name:"Oslo",lat:59.914,lng:10.752},{name:"Barcelona",lat:41.387,lng:2.169},
-      {name:"Mumbai",lat:19.076,lng:72.877},{name:"Shanghai",lat:31.230,lng:121.474},
-      {name:"Singapore",lat:1.352,lng:103.820},{name:"Lagos",lat:6.524,lng:3.379},
-      {name:"São Paulo",lat:-23.551,lng:-46.633},{name:"New York",lat:40.713,lng:-74.006}
-    ];
-    const routes = [
-      ["Croydon","Purfleet"],["Croydon","Brentford"],["Croydon","Rotterdam"],
-      ["Croydon","Antwerp"],["Croydon","Hamburg"],["Purfleet","Rotterdam"],
-      ["Rotterdam","Hamburg"],["Antwerp","Barcelona"],["Rotterdam","Mumbai"],
-      ["Hamburg","Shanghai"],["Barcelona","Lagos"],["New York","São Paulo"],
-      ["Singapore","Shanghai"]
-    ];
-    const cityMap = Object.fromEntries(cities.map(c=>[c.name,c]));
+  // ═══════════════════════════════════════════════════
+  // DATA — Cities with procurement-grade detail
+  // ═══════════════════════════════════════════════════
+  const cities = [
+    { name:"Croydon",     lat:51.376,  lng:-0.098,  type:"home",   category:"local",
+      metric:"47", metricLabel:"Crew members", metric2:"06:00", metric2Label:"Daily start",
+      info:"Our home depot. 47 crew, 8 vehicles, 24/7 operations centre. Every collection tracked via our in-house logistics platform. Real Living Wage employer — every driver, every loader, every admin.",
+      role:"Operations hub — CR0" },
+    { name:"Bromley",     lat:51.406,  lng:0.015,   type:"partner", category:"local",
+      metric:"14", metricLabel:"Active contracts", metric2:"12.7", metric2Label:"Miles from depot",
+      info:"14 active contracts including 3 care homes, 2 secondary schools, and the Bromley Civic Centre. Average response time 1h 45min. Dedicated team of 6 based out of our Croydon yard.",
+      role:"South London partner" },
+    { name:"Purfleet",    lat:51.487,  lng:0.237,   type:"transfer", category:"local",
+      metric:"3,200t", metricLabel:"Processed 2025", metric2:"22.1", metric2Label:"Miles from Croydon",
+      info:"Our primary Materials Recycling Facility. 3,200 tonnes processed in 2025 — paper, card, plastics, glass. 98.5% purity on sorted bales. Direct rail link to Tilbury docks for export.",
+      role:"MRF & transfer station" },
+    { name:"Brentford",   lat:51.487,  lng:-0.306,  type:"transfer", category:"local",
+      metric:"1,850t", metricLabel:"Processed 2025", metric2:"14.3", metric2Label:"Miles from Croydon",
+      info:"Secondary transfer station handling construction & demolition waste. 1,850 tonnes processed in 2025. 92% recovery rate — concrete crushed to Type 1 aggregate, timber chipped for biomass.",
+      role:"C&D recycling centre" },
+    { name:"Manchester",  lat:53.481,  lng:-2.237,  type:"uk", category:"uk",
+      metric:"1,840t", metricLabel:"Tonnes received 2025", metric2:"209", metric2Label:"Miles from Croydon",
+      info:"Our largest UK recycling partner. 1,840 tonnes of mixed plastics and textiles sent in 2025. ISO 14001 certified facility. Closed-loop processing — plastics returned as PCR pellets for UK manufacturing.",
+      role:"Mixed plastics & textiles" },
+    { name:"Glasgow",     lat:55.864,  lng:-4.251,  type:"haz", category:"haz",
+      metric:"620t", metricLabel:"Haz waste processed", metric2:"407", metric2Label:"Miles from Croydon",
+      info:"SEPA-licensed hazardous waste partner. Asbestos, batteries, solvents, chemicals — all with full consignment notes and audit trail. ADR-compliant transport. Quarterly compliance reports for your ISO 14001.",
+      role:"Hazardous waste specialist" },
+    { name:"Cardiff",     lat:51.482,  lng:-3.179,  type:"uk", category:"uk",
+      metric:"940t", metricLabel:"C&D waste recycled", metric2:"157", metric2Label:"Miles from Croydon",
+      info:"Construction & demolition recycling hub. 940 tonnes of C&D waste processed — concrete crushed to Type 1 aggregate, 92% recovery rate. Serving South Wales infrastructure projects.",
+      role:"C&D recycling — South Wales" },
+    { name:"Rotterdam",   lat:51.924,  lng:4.478,   type:"intl", category:"intl",
+      metric:"4,100t", metricLabel:"Export gateway 2025", metric2:"208", metric2Label:"Nautical miles",
+      info:"Our largest European export partner. 4,100 tonnes of recovered materials shipped in 2025 — paper, plastics, metals. Port of Rotterdam is Europe's #1 recycling gateway. Direct shipping from Purfleet.",
+      role:"European export hub" },
+    { name:"Antwerp",     lat:51.219,  lng:4.402,   type:"intl", category:"intl",
+      metric:"1,640t", metricLabel:"Processed 2025", metric2:"187", metric2Label:"Nautical miles",
+      info:"Specialist plastics recycling. 1,640 tonnes processed in 2025. Advanced optical sorting — 15 polymer grades. Serving Benelux manufacturing. Our route for high-grade engineering plastics.",
+      role:"Plastics specialist" },
+    { name:"Hamburg",     lat:53.551,  lng:9.994,   type:"intl", category:"intl",
+      metric:"2,100t", metricLabel:"Processed 2025", metric2:"430", metric2Label:"Nautical miles",
+      info:"Northern European processing hub. 2,100 tonnes processed 2025 — mixed paper, OCC, metals. Serving German and Scandinavian markets. Our route for recovered fibre and ferrous metals.",
+      role:"Paper & metals recovery" },
+    { name:"Barcelona",   lat:41.387,  lng:2.169,   type:"intl", category:"intl",
+      metric:"890t", metricLabel:"Processed 2025", metric2:"843", metric2Label:"Nautical miles",
+      info:"Southern European partner. 890 tonnes of recovered glass and aluminium in 2025. Serving Spanish and North African markets. Our route for container glass — closed-loop back to bottle manufacturing.",
+      role:"Glass & aluminium" },
+    { name:"Mumbai",      lat:19.076,  lng:72.877,  type:"intl", category:"intl",
+      metric:"520t", metricLabel:"Textiles recycled", metric2:"4,600", metric2Label:"Nautical miles",
+      info:"Textile recycling partner. 520 tonnes of recovered textiles and clothing processed in 2025. ETI Base Code audited facility. Serving the Indian subcontinent textile circular economy.",
+      role:"Textiles — Asia" },
+    { name:"Shanghai",    lat:31.230,  lng:121.474, type:"intl", category:"intl",
+      metric:"780t", metricLabel:"E-waste processed", metric2:"5,800", metric2Label:"Nautical miles",
+      info:"WEEE-compliant e-waste processing. 780 tonnes of recovered electronics processed in 2025. ISO 14001 + R2 certified. Precious metal recovery — gold, silver, palladium returned to market.",
+      role:"E-waste — East Asia" },
+    { name:"Singapore",   lat:1.352,   lng:103.820, type:"intl", category:"intl",
+      metric:"340t", metricLabel:"Specialist waste", metric2:"6,800", metric2Label:"Nautical miles",
+      info:"Specialist waste partner for SE Asia. 340 tonnes processed 2025 — medical waste, laboratory disposables, specialist filters. NEA-licensed facility. Our route for difficult-to-recycle materials.",
+      role:"Specialist — SE Asia" },
+    { name:"Lagos",       lat:6.524,   lng:3.379,   type:"intl", category:"intl",
+      metric:"410t", metricLabel:"Scrap metal 2025", metric2:"3,200", metric2Label:"Nautical miles",
+      info:"West African partner. 410 tonnes of recovered ferrous and non-ferrous metals shipped in 2025. Supporting local steel production. Our route for bulk scrap metal that feeds African manufacturing.",
+      role:"Metals — West Africa" },
+    { name:"São Paulo",   lat:-23.551, lng:-46.633, type:"intl", category:"intl",
+      metric:"290t", metricLabel:"Recovered fibre", metric2:"5,900", metric2Label:"Nautical miles",
+      info:"South American recovered fibre partner. 290 tonnes of recovered paper and OCC shipped 2025. Serving Brazilian packaging industry. Our route into the Latin American circular economy.",
+      role:"Recovered fibre — S America" },
+    { name:"New York",    lat:40.713,  lng:-74.006, type:"intl", category:"intl",
+      metric:"350t", metricLabel:"Specialist recycling", metric2:"3,500", metric2Label:"Nautical miles",
+      info:"North American specialist partner. 350 tonnes of specialist plastics and composites processed 2025. FDA-approved food-grade rPET facility. Our route for high-value recycled content back to UK manufacturers.",
+      role:"Specialist — North America" }
+  ];
 
-    const arcGroup = svg.append("g").attr("filter","url(#arcGlow)");
-    function drawArcs() {
-      arcGroup.selectAll("*").remove();
-      routes.forEach(([from,to]) => {
-        const a=cityMap[from],b=cityMap[to];
-        if(!a||!b)return;
-        const interp=d3.geoInterpolate([a.lng,a.lat],[b.lng,b.lat]);
-        const pts=d3.range(0,1.01,0.02).map(t=>projection(interp(t)));
-        arcGroup.append("path").attr("d",d3.line().curve(d3.curveCardinal.tension(0.3))(pts))
-          .attr("fill","none").attr("stroke","#d4ed7e").attr("stroke-width",1).attr("stroke-opacity",0.35);
-      });
-    }
+  // Routes with categories
+  const allRoutes = [
+    // Local boroughs
+    { from:"Croydon", to:"Bromley",     category:"local" },
+    { from:"Croydon", to:"Purfleet",    category:"local" },
+    { from:"Croydon", to:"Brentford",   category:"local" },
+    { from:"Bromley", to:"Purfleet",    category:"local" },
+    { from:"Purfleet",to:"Brentford",   category:"local" },
+    // UK recycling
+    { from:"Croydon", to:"Manchester",  category:"uk" },
+    { from:"Croydon", to:"Glasgow",     category:"uk" },
+    { from:"Croydon", to:"Cardiff",     category:"uk" },
+    { from:"Manchester",to:"Glasgow",   category:"uk" },
+    { from:"Purfleet", to:"Manchester", category:"uk" },
+    { from:"Purfleet", to:"Cardiff",    category:"uk" },
+    { from:"Brentford",to:"Cardiff",    category:"uk" },
+    { from:"Glasgow",  to:"Cardiff",    category:"uk" },
+    // Hazardous waste
+    { from:"Croydon", to:"Glasgow",     category:"haz" },
+    { from:"Glasgow", to:"Rotterdam",   category:"haz" },
+    // International
+    { from:"Croydon", to:"Rotterdam",   category:"intl" },
+    { from:"Croydon", to:"Antwerp",     category:"intl" },
+    { from:"Croydon", to:"Hamburg",     category:"intl" },
+    { from:"Purfleet",to:"Rotterdam",   category:"intl" },
+    { from:"Rotterdam",to:"Hamburg",    category:"intl" },
+    { from:"Antwerp", to:"Barcelona",   category:"intl" },
+    { from:"Rotterdam",to:"Mumbai",     category:"intl" },
+    { from:"Hamburg", to:"Shanghai",    category:"intl" },
+    { from:"Barcelona",to:"Lagos",      category:"intl" },
+    { from:"New York",to:"São Paulo",   category:"intl" },
+    { from:"Singapore",to:"Shanghai",   category:"intl" }
+  ];
 
-    const pulseGroup = svg.append("g");
-    const pulses = [];
-    routes.forEach(([from,to]) => {
-      const a=cityMap[from],b=cityMap[to];
-      if(!a||!b)return;
-      const interp=d3.geoInterpolate([a.lng,a.lat],[b.lng,b.lat]);
-      pulses.push({interp,progress:Math.random(),speed:0.0015+Math.random()*0.003,
-        node:pulseGroup.append("circle").attr("r",1.8).attr("fill","#f8f5ed")});
+  const cityMap = Object.fromEntries(cities.map(c => [c.name, c]));
+
+  // ═══════════════════════════════════════════════════
+  // STATE
+  // ═══════════════════════════════════════════════════
+  let currentFilter = "all";
+  let hoveredCity = null;
+  let selectedCity = null;
+  let isFlying = false;
+  let autoRotateEnabled = true;
+  let lastLambda = -0.1, lastPhi = -51.3;
+
+  // ═══════════════════════════════════════════════════
+  // RENDER
+  // ═══════════════════════════════════════════════════
+  const arcGroup = svg.append("g").attr("filter","url(#arcGlow)");
+  const cityGroup = svg.append("g");
+  const pulseGroup = svg.append("g");
+
+  function getVisibleRoutes() {
+    return allRoutes.filter(r => {
+      if (currentFilter === "all") return true;
+      if (currentFilter === "local") return r.category === "local";
+      if (currentFilter === "uk") return r.category === "uk";
+      if (currentFilter === "haz") return r.category === "haz";
+      return r.category !== "haz"; // fallback
     });
-    function animatePulses() {
-      pulses.forEach(p=>{
-        p.progress+=p.speed; if(p.progress>1)p.progress=0;
-        const[px,py]=projection(p.interp(p.progress))||[0,0];
-        p.node.attr("cx",px).attr("cy",py);
-        const[cLng,cLat]=p.interp(p.progress);
-        p.node.attr("opacity",d3.geoDistance([cLng,cLat],projection.invert([cx,cy]))<Math.PI/2?0.9:0);
-      });
-    }
+  }
 
-    const cityGroup = svg.append("g");
-    function drawCities() {
-      cityGroup.selectAll("*").remove();
-      cities.forEach(c=>{
-        const[x,y]=projection([c.lng,c.lat])||[0,0];
-        if(d3.geoDistance([c.lng,c.lat],projection.invert([cx,cy]))>=Math.PI/2)return;
-        const isC=c.name==="Croydon";
+  function drawArcs() {
+    arcGroup.selectAll("*").remove();
+    const visibleRoutes = getVisibleRoutes();
+    visibleRoutes.forEach(r => {
+      const a = cityMap[r.from], b = cityMap[r.to];
+      if (!a || !b) return;
+      const interp = d3.geoInterpolate([a.lng, a.lat], [b.lng, b.lat]);
+      const pts = d3.range(0, 1.01, 0.02).map(t => projection(interp(t)));
+      let opacity = 0.35;
+      // Hover: highlight connected arcs, dim others
+      if (hoveredCity) {
+        const isConnected = (r.from === hoveredCity || r.to === hoveredCity);
+        opacity = isConnected ? 0.8 : 0.08;
+      }
+      arcGroup.append("path")
+        .attr("d", d3.line().curve(d3.curveCardinal.tension(0.3))(pts))
+        .attr("fill","none").attr("stroke","#d4ed7e")
+        .attr("stroke-width", hoveredCity && (r.from===hoveredCity||r.to===hoveredCity) ? 2 : 1)
+        .attr("stroke-opacity", opacity);
+    });
+  }
+
+  // Pulse dots along routes
+  const pulses = [];
+  function buildPulses() {
+    pulseGroup.selectAll("*").remove();
+    pulses.length = 0;
+    const visibleRoutes = getVisibleRoutes();
+    visibleRoutes.forEach(r => {
+      const a = cityMap[r.from], b = cityMap[r.to];
+      if (!a || !b) return;
+      const interp = d3.geoInterpolate([a.lng, a.lat], [b.lng, b.lat]);
+      pulses.push({
+        interp, progress: Math.random(),
+        speed: 0.001 + Math.random() * 0.003,
+        node: pulseGroup.append("circle").attr("r", 2).attr("fill","#f8f5ed")
+      });
+    });
+  }
+  function animatePulses() {
+    pulses.forEach(p => {
+      p.progress += p.speed;
+      if (p.progress > 1) p.progress = 0;
+      const [px, py] = projection(p.interp(p.progress)) || [0, 0];
+      p.node.attr("cx", px).attr("cy", py);
+      const [cLng, cLat] = p.interp(p.progress);
+      p.node.attr("opacity",
+        d3.geoDistance([cLng, cLat], projection.invert([cx, cy])) < Math.PI/2 ? 0.9 : 0);
+    });
+  }
+
+  function drawCities() {
+    cityGroup.selectAll("*").remove();
+    cities.forEach(c => {
+      const [x, y] = projection([c.lng, c.lat]) || [0, 0];
+      // Hidden on back hemisphere
+      if (d3.geoDistance([c.lng, c.lat], projection.invert([cx, cy])) >= Math.PI/2) return;
+
+      const isHome = c.name === "Croydon";
+      const isSelected = selectedCity === c.name;
+      const isHovered = hoveredCity === c.name;
+      let r = isHome ? 5 : 3;
+      let fill = isHome ? "#b8e34a" : "#d4ed7e";
+      let opacity = isHome ? 1 : 0.7;
+
+      if (isSelected) { r = 6; fill = "#f8f5ed"; opacity = 1; }
+      if (isHovered && !isSelected) { r = 5; opacity = 1; }
+      if (hoveredCity && !isHovered && !isSelected && !isHome) { opacity = 0.3; }
+
+      // Glow circle behind city
+      if (isSelected || isHovered) {
         cityGroup.append("circle").attr("cx",x).attr("cy",y)
-          .attr("r",isC?4.5:2.5).attr("fill",isC?"#b8e34a":"#d4ed7e")
-          .attr("stroke","#0a1f17").attr("stroke-width",1).attr("opacity",isC?1:0.7);
-        cityGroup.append("text").attr("x",x+8).attr("y",y+4)
-          .attr("fill","#f8f5ed").attr("font-size",isC?11:9)
-          .attr("font-family","'Inter',sans-serif").attr("font-weight",isC?700:400)
-          .attr("opacity",isC?1:0.6).text(c.name);
-      });
-    }
+          .attr("r", r + 6).attr("fill","none")
+          .attr("stroke", isSelected ? "#f8f5ed" : "#d4ed7e")
+          .attr("stroke-width", 1.5).attr("stroke-opacity", 0.5);
+      }
 
-    function render() { landPath.attr("d",path); drawArcs(); drawCities(); }
+      cityGroup.append("circle").attr("cx",x).attr("cy",y)
+        .attr("r", r).attr("fill", fill)
+        .attr("stroke","#0a1f17").attr("stroke-width", 1.5)
+        .attr("opacity", opacity)
+        .attr("class", "city-dot")
+        .attr("data-city", c.name)
+        .style("cursor","pointer")
+        .on("mouseenter", function() { hoveredCity = c.name; render(); })
+        .on("mouseleave", function() { hoveredCity = null; render(); })
+        .on("click", function() { handleCityClick(c.name); });
 
-    let lastLambda=-0.1, lastPhi=-51.3;
-    svg.call(d3.drag().on("start",()=>{svg.style("cursor","grabbing")})
-      .on("drag",event=>{lastLambda+=event.dx*0.3;lastPhi-=event.dy*0.3;
-        if(lastPhi>90)lastPhi=90;if(lastPhi<-90)lastPhi=-90;
-        projection.rotate([lastLambda,lastPhi]);render();})
-      .on("end",()=>{svg.style("cursor","grab")}));
-
-    function autoRotate() {
-      lastLambda-=0.08;projection.rotate([lastLambda,lastPhi]);render();animatePulses();
-      requestAnimationFrame(autoRotate);
-    }
-    render();autoRotate();
-  })();
-
-  // ── Scroll reveal ────────────────────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('in');
+      // Labels — always show, dim on non-hovered when hovering
+      let labelOpacity = isHome ? 1 : 0.7;
+      if (hoveredCity && !isHovered && !isHome) labelOpacity = 0.15;
+      cityGroup.append("text").attr("x", x + 8).attr("y", y + 4)
+        .attr("fill","#f8f5ed").attr("font-size", isHome ? 11 : 9)
+        .attr("font-family","'Inter',sans-serif")
+        .attr("font-weight", isHome ? 700 : 400)
+        .attr("opacity", labelOpacity)
+        .attr("pointer-events","none")
+        .text(c.name);
     });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  function render() {
+    landPath.attr("d", path);
+    drawArcs();
+    drawCities();
+  }
+
+  // ═══════════════════════════════════════════════════
+  // FEATURE 1: Click → Fly To City
+  // ═══════════════════════════════════════════════════
+  function handleCityClick(cityName) {
+    if (isFlying) return;
+    const city = cityMap[cityName];
+    if (!city) return;
+
+    // If clicking same city, deselect
+    if (selectedCity === cityName) {
+      selectedCity = null;
+      hideDetailCard();
+      render();
+      return;
+    }
+
+    selectedCity = cityName;
+    autoRotateEnabled = false;
+    isFlying = true;
+
+    const targetRotate = [-city.lng, -city.lat];
+    const startRotate = [lastLambda, lastPhi];
+
+    svg.transition()
+      .duration(1000)
+      .ease(d3.easeCubicInOut)
+      .tween("rotate", () => {
+        const r = d3.interpolate(startRotate, targetRotate);
+        return t => {
+          const rot = r(t);
+          lastLambda = rot[0];
+          lastPhi = rot[1];
+          projection.rotate(rot);
+          render();
+        };
+      })
+      .on("end", () => {
+        isFlying = false;
+        showDetailCard(city);
+      });
+  }
+
+  // ═══════════════════════════════════════════════════
+  // FEATURE 2: Detail Card
+  // ═══════════════════════════════════════════════════
+  const detailOverlay = document.getElementById("globe-detail-overlay");
+  const detailCard = document.getElementById("globe-detail-card");
+  const detailClose = document.getElementById("globe-detail-close");
+
+  function showDetailCard(city) {
+    let catLabel = "";
+    if (city.category === "local") catLabel = "Local borough";
+    else if (city.category === "uk") catLabel = "UK recycling partner";
+    else if (city.category === "haz") catLabel = "Hazardous waste partner";
+    else catLabel = "International partner";
+
+    detailCard.innerHTML = `
+      <div class="city-name">${city.name}</div>
+      <div class="city-role">${catLabel} — ${city.role}</div>
+      <div class="city-metric">${city.metric}</div>
+      <div class="city-metric-label">${city.metricLabel}</div>
+      <div class="city-info">${city.info}</div>
+      <div class="city-extra">
+        <div><span>Distance</span><strong>${city.metric2}</strong></div>
+        <div><span>from Croydon</span><strong>${city.metric2Label}</strong></div>
+      </div>`;
+    detailOverlay.classList.add("visible");
+  }
+
+  function hideDetailCard() {
+    detailOverlay.classList.remove("visible");
+    selectedCity = null;
+    autoRotateEnabled = true;
+  }
+
+  detailClose.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hideDetailCard();
+    render();
+  });
+
+  // ═══════════════════════════════════════════════════
+  // FEATURE 3: Filters
+  // ═══════════════════════════════════════════════════
+  document.querySelectorAll(".globe-filter-chip").forEach(chip => {
+    chip.addEventListener("click", function() {
+      document.querySelectorAll(".globe-filter-chip").forEach(c => c.classList.remove("active"));
+      this.classList.add("active");
+      currentFilter = this.dataset.filter;
+      hideDetailCard();
+      render();
+      buildPulses();
+    });
+  });
+
+  // ═══════════════════════════════════════════════════
+  // FEATURE 4: Counters that tick up on scroll
+  // ═══════════════════════════════════════════════════
+  let countersTriggered = false;
+  function animateCounters() {
+    if (countersTriggered) return;
+    countersTriggered = true;
+
+    const collectionsEl = document.getElementById("counter-collections");
+    const divertedEl = document.getElementById("counter-diverted");
+    const partnersEl = document.getElementById("counter-partners");
+
+    function countUp(el, target, suffix, duration) {
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+        const current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    countUp(collectionsEl, 12847, "", 2200);
+    countUp(divertedEl, 94, "%", 1800);
+    countUp(partnersEl, 13, "", 1600);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) animateCounters();
+  }, { threshold: 0.3 });
+  const countersDiv = document.getElementById("globe-counters");
+  if (countersDiv) counterObserver.observe(countersDiv);
+
+  // ═══════════════════════════════════════════════════
+  // FEATURE 5: Live Ticker
+  // ═══════════════════════════════════════════════════
+  const tickerMessages = [
+    "Crew loading in CR0 — 2 mins ago",
+    "Recycling delivered to Manchester — 14 mins ago",
+    "Fly-tip cleared in CR7 (free for TRA) — 22 mins ago",
+    "Hazardous waste consignment to Glasgow — 38 mins ago",
+    "MRF bale shipment departed Purfleet — 1h 12m ago",
+    "Builder waste collected in CR2 — 1h 45m ago",
+    "Cardiff C&D aggregate batch shipped — 3h 8m ago",
+    "Rotterdam export container cleared customs — 4h 20m ago"
+  ];
+  let tickerIndex = 0;
+  const tickerText = document.getElementById("ticker-text");
+  setInterval(() => {
+    tickerIndex = (tickerIndex + 1) % tickerMessages.length;
+    if (tickerText) tickerText.textContent = tickerMessages[tickerIndex];
+  }, 4000);
+
+  // ═══════════════════════════════════════════════════
+  // DRAG + AUTO-ROTATE
+  // ═══════════════════════════════════════════════════
+  svg.call(d3.drag()
+    .on("start", () => { svg.style("cursor","grabbing"); autoRotateEnabled = false; })
+    .on("drag", event => {
+      lastLambda += event.dx * 0.3;
+      lastPhi -= event.dy * 0.3;
+      if (lastPhi > 90) lastPhi = 90;
+      if (lastPhi < -90) lastPhi = -90;
+      projection.rotate([lastLambda, lastPhi]);
+      render();
+    })
+    .on("end", () => {
+      svg.style("cursor","grab");
+      if (!selectedCity) autoRotateEnabled = true;
+    })
+  );
+
+  function autoRotate() {
+    if (autoRotateEnabled && !isFlying) {
+      lastLambda -= 0.06;
+      projection.rotate([lastLambda, lastPhi]);
+      render();
+    }
+    animatePulses();
+    requestAnimationFrame(autoRotate);
+  }
+
+  // ═══════════════════════════════════════════════════
+  // INIT
+  // ═══════════════════════════════════════════════════
+  render();
+  buildPulses();
+  autoRotate();
+})();
+
+// ── Scroll reveal ────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('in');
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
