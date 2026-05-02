@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="https://unpkg.com/topojson@1"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
 
 <style>
   :root {
@@ -1612,7 +1612,7 @@ We know every estate, every high street, every back alley — because we live he
 })();
 
 // ── Postcode Search + Form Toast ────────────
-document.addEventListener("DOMContentLoaded", () => {
+(function() {
 const postcodes = [
   { code: "CR0", area: "Croydon, Addiscombe" },
   { code: "CR2", area: "South Croydon, Sanderstead" },
@@ -1714,7 +1714,7 @@ if (contactForm) {
     contactForm.reset();
   });
 }
-}); // DOMContentLoaded
+})(); // postcode + form IIFE
 
 // ── Scroll reveal ────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
