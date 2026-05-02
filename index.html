@@ -990,7 +990,7 @@ We know every estate, every high street, every back alley — because we live he
     </div>
   </div>
 
-  <form class="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+  <form class="contact-form" id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
     <div class="form-title">Tell us what you need</div>
     <p class="form-sub">We typically reply within 15 minutes during business hours.</p>
 
@@ -1141,9 +1141,11 @@ We know every estate, every high street, every back alley — because we live he
 
   // ── Atmosphere + base circle ──────────────────────
   svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",width*0.38)
-    .attr("fill","url(#atmGrad)").attr("filter","url(#atmosphere)");
+    .attr("fill","url(#atmGrad)").attr("filter","url(#atmosphere)")
+    .attr("id","globe-atmosphere");
   svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",projection.scale())
-    .attr("fill","#0f2a20").attr("stroke","rgba(212,237,126,0.15)").attr("stroke-width",1);
+    .attr("fill","#0f2a20").attr("stroke","rgba(212,237,126,0.15)").attr("stroke-width",1)
+    .attr("id","globe-base");
 
   // ── Land ──────────────────────────────────────────
   const world = await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
@@ -1278,19 +1280,24 @@ We know every estate, every high street, every back alley — because we live he
   let currentZoom = 1;
 
   // ═══════════════════════════════════════════════════
-  // ZOOM — scroll wheel
+  // ZOOM — scroll wheel (wrapped safe)
   // ═══════════════════════════════════════════════════
-  const svgNode = svg.node();
-  svgNode.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.04 : 0.04;
-    currentZoom = Math.max(0.5, Math.min(2.0, currentZoom + delta));
-    projection.scale(width * 0.35 * currentZoom);
-    // Rescale atmosphere and base
-    svg.select("circle:nth-child(1)").attr("r", width * 0.38 * currentZoom);
-    svg.select("circle:nth-child(2)").attr("r", projection.scale());
-    render();
-  }, { passive: false });
+  try {
+    const svgNode = svg.node();
+    if (svgNode) {
+      svgNode.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.04 : 0.04;
+        currentZoom = Math.max(0.5, Math.min(2.0, currentZoom + delta));
+        projection.scale(width * 0.35 * currentZoom);
+        const atm = document.getElementById("globe-atmosphere");
+        const base = document.getElementById("globe-base");
+        if (atm) atm.setAttribute("r", width * 0.38 * currentZoom);
+        if (base) base.setAttribute("r", projection.scale());
+        render();
+      }, { passive: false });
+    }
+  } catch(e) { console.warn("Zoom init failed:", e); }
 
   // ═══════════════════════════════════════════════════
   // RENDER
@@ -1604,7 +1611,8 @@ We know every estate, every high street, every back alley — because we live he
   autoRotate();
 })();
 
-// ── Postcode Search ────────────────────────────
+// ── Postcode Search + Form Toast ────────────
+document.addEventListener("DOMContentLoaded", () => {
 const postcodes = [
   { code: "CR0", area: "Croydon, Addiscombe" },
   { code: "CR2", area: "South Croydon, Sanderstead" },
@@ -1706,6 +1714,7 @@ if (contactForm) {
     contactForm.reset();
   });
 }
+}); // DOMContentLoaded
 
 // ── Scroll reveal ────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
