@@ -990,7 +990,7 @@ We know every estate, every high street, every back alley — because we live he
     </div>
   </div>
 
-  <form class="contact-form" id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+  <form class="contact-form" id="contact-form" onsubmit="event.preventDefault(); showQuoteToast(event);">
     <div class="form-title">Tell us what you need</div>
     <p class="form-sub">We typically reply within 15 minutes during business hours.</p>
 
@@ -1611,7 +1611,18 @@ We know every estate, every high street, every back alley — because we live he
   autoRotate();
 })();
 
-// ── Postcode Search + Form Toast ────────────
+// ── Smooth scroll for all nav links ──────────
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ── Postcode Search ──────────────────────────
 (function() {
 const postcodes = [
   { code: "CR0", area: "Croydon, Addiscombe" },
@@ -1688,33 +1699,22 @@ function showPostcodeSuccess(code, area) {
   resultEl.className = "postcode-result success";
   resultEl.innerHTML = `✅ <span class="result-code">${code}</span> — Great news! We cover <strong>${area}</strong>. Same-day collection available. <a href="#contact" style="color:#1b5e20;text-decoration:underline;">Get a quote →</a>`;
 }
+})(); // postcode IIFE
 
-// ── Form Toast (restored) ───────────────────────
-const contactForm = document.querySelector(".contact-form");
-if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // Show toast
-    let toast = document.getElementById("form-toast");
-    if (!toast) {
-      toast = document.createElement("div");
-      toast.id = "form-toast";
-      toast.style.cssText = `
-        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
-        background: var(--green-deep); color: var(--cream); padding: 18px 32px;
-        border-radius: 999px; font-weight: 600; font-size: 15px; z-index: 9999;
-        box-shadow: 0 14px 40px rgba(15,76,58,0.4); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        display: flex; align-items: center; gap: 10px;
-      `;
-      document.body.appendChild(toast);
-    }
-    toast.innerHTML = "✅ Thanks! We'll be in touch within 15 minutes.";
-    toast.style.transform = "translateX(-50%) translateY(0)";
-    setTimeout(() => { toast.style.transform = "translateX(-50%) translateY(100px)"; }, 3500);
-    contactForm.reset();
-  });
+// ── Form Toast (global, inline-onsubmit safe) ─
+function showQuoteToast(e) {
+  let toast = document.getElementById("form-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "form-toast";
+    toast.style.cssText = "position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#0f4c3a;color:#f8f5ed;padding:18px 32px;border-radius:999px;font-weight:600;font-size:15px;z-index:9999;box-shadow:0 14px 40px rgba(15,76,58,0.4);transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;align-items:center;gap:10px;";
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = "✅ Thanks! We'll be in touch within 15 minutes.";
+  toast.style.transform = "translateX(-50%) translateY(0)";
+  setTimeout(function(){ toast.style.transform = "translateX(-50%) translateY(100px)"; }, 3500);
+  document.getElementById("contact-form").reset();
 }
-})(); // postcode + form IIFE
 
 // ── Scroll reveal ────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
