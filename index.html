@@ -491,6 +491,62 @@ background: radial-gradient(circle, rgba(212, 237, 126, 0.18), transparent 65%);
   .postcode .area { font-size: 12px; color: var(--ink-soft); transition: color 0.2s; }
   .postcode:hover .area { color: var(--cream); opacity: 0.8; }
 
+  /* ── Postcode Search ──────────────────────────── */
+  .postcode-search-wrap { position: relative; }
+  .postcode-search {
+    width: 100%; padding: 16px 48px 16px 20px;
+    border: 2px solid var(--line); background: var(--cream);
+    border-radius: 14px; font-family: 'Inter', sans-serif;
+    font-size: 16px; color: var(--ink);
+    transition: all 0.25s;
+  }
+  .postcode-search:focus {
+    outline: none; border-color: var(--green-deep);
+    box-shadow: 0 0 0 4px rgba(15, 76, 58, 0.1);
+  }
+  .postcode-search-icon {
+    position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+    font-size: 18px; pointer-events: none;
+  }
+  .postcode-suggestions {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--cream); border: 1px solid var(--line);
+    border-radius: 0 0 14px 14px; overflow: hidden;
+    z-index: 30; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .postcode-suggestions.show { display: block; }
+  .postcode-suggestion-item {
+    padding: 14px 20px; cursor: pointer; transition: all 0.15s;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 15px;
+  }
+  .postcode-suggestion-item:hover { background: var(--green-deep); color: var(--cream); }
+  .postcode-suggestion-item .sugg-code {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+  }
+  .postcode-suggestion-item .sugg-area { font-size: 13px; color: var(--ink-soft); }
+  .postcode-suggestion-item:hover .sugg-area { color: var(--lime); }
+  .postcode-result {
+    margin-top: 14px; padding: 18px 22px;
+    border-radius: 14px; font-size: 15px; display: none;
+    animation: fadeSlide 0.3s ease;
+  }
+  .postcode-result.success {
+    display: block; background: #e8f5e9; color: #1b5e20;
+    border: 1px solid #a5d6a7;
+  }
+  .postcode-result.success .result-code {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+  }
+  .postcode-result.error {
+    display: block; background: #fce4ec; color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .contact-section { background: var(--cream-warm); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: start; }
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
@@ -845,6 +901,16 @@ footer a:hover { color: var(--lime); }
       <h2 class="section-title">Every corner of <em>our borough.</em></h2>
       <p class="section-lead">Same-day collection across all Croydon postcodes.
 We know every estate, every high street, every back alley — because we live here.</p>
+    </div>
+
+    <!-- Postcode search -->
+    <div class="reveal" style="margin-bottom: 32px; max-width: 500px;">
+      <div class="postcode-search-wrap">
+        <input type="text" id="postcode-search" class="postcode-search" placeholder="Search your postcode (e.g. CR0, SE25)..." autocomplete="off" />
+        <span class="postcode-search-icon">🔍</span>
+        <div id="postcode-suggestions" class="postcode-suggestions"></div>
+      </div>
+      <div id="postcode-result" class="postcode-result"></div>
     </div>
 <div class="coverage-grid reveal">
   <div class="postcode"><div class="code">CR0</div><div class="area">Croydon, Addiscombe</div></div>
@@ -1209,6 +1275,22 @@ We know every estate, every high street, every back alley — because we live he
   let isFlying = false;
   let autoRotateEnabled = true;
   let lastLambda = -0.1, lastPhi = -51.3;
+  let currentZoom = 1;
+
+  // ═══════════════════════════════════════════════════
+  // ZOOM — scroll wheel
+  // ═══════════════════════════════════════════════════
+  const svgNode = svg.node();
+  svgNode.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.04 : 0.04;
+    currentZoom = Math.max(0.5, Math.min(2.0, currentZoom + delta));
+    projection.scale(width * 0.35 * currentZoom);
+    // Rescale atmosphere and base
+    svg.select("circle:nth-child(1)").attr("r", width * 0.38 * currentZoom);
+    svg.select("circle:nth-child(2)").attr("r", projection.scale());
+    render();
+  }, { passive: false });
 
   // ═══════════════════════════════════════════════════
   // RENDER
@@ -1521,6 +1603,109 @@ We know every estate, every high street, every back alley — because we live he
   buildPulses();
   autoRotate();
 })();
+
+// ── Postcode Search ────────────────────────────
+const postcodes = [
+  { code: "CR0", area: "Croydon, Addiscombe" },
+  { code: "CR2", area: "South Croydon, Sanderstead" },
+  { code: "CR3", area: "Caterham, Whyteleafe" },
+  { code: "CR4", area: "Mitcham" },
+  { code: "CR5", area: "Coulsdon, Old Coulsdon" },
+  { code: "CR6", area: "Warlingham" },
+  { code: "CR7", area: "Thornton Heath" },
+  { code: "CR8", area: "Purley, Kenley" },
+  { code: "SE25", area: "South Norwood" },
+  { code: "SE19", area: "Crystal Palace" },
+  { code: "SE20", area: "Penge, Anerley" },
+  { code: "BR3", area: "Beckenham" }
+];
+
+const searchInput = document.getElementById("postcode-search");
+const suggestionsEl = document.getElementById("postcode-suggestions");
+const resultEl = document.getElementById("postcode-result");
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const val = searchInput.value.toUpperCase().trim();
+    resultEl.className = "postcode-result";
+    resultEl.textContent = "";
+    if (!val) { suggestionsEl.classList.remove("show"); return; }
+    const matches = postcodes.filter(p => p.code.includes(val) || p.area.toUpperCase().includes(val));
+    if (matches.length === 0) {
+      suggestionsEl.classList.remove("show");
+      return;
+    }
+    suggestionsEl.innerHTML = matches.map(p =>
+      `<div class="postcode-suggestion-item" data-code="${p.code}" data-area="${p.area}">
+        <span class="sugg-code">${p.code}</span>
+        <span class="sugg-area">${p.area}</span>
+      </div>`).join("");
+    suggestionsEl.classList.add("show");
+  });
+
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const val = searchInput.value.toUpperCase().trim();
+      checkPostcode(val);
+    }
+  });
+
+  suggestionsEl.addEventListener("click", (e) => {
+    const item = e.target.closest(".postcode-suggestion-item");
+    if (!item) return;
+    const code = item.dataset.code;
+    const area = item.dataset.area;
+    searchInput.value = code;
+    suggestionsEl.classList.remove("show");
+    showPostcodeSuccess(code, area);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".postcode-search-wrap")) suggestionsEl.classList.remove("show");
+  });
+}
+
+function checkPostcode(val) {
+  const match = postcodes.find(p => p.code === val);
+  if (match) {
+    showPostcodeSuccess(match.code, match.area);
+  } else if (val.length >= 2) {
+    resultEl.className = "postcode-result error";
+    resultEl.innerHTML = `❌ Sorry — <strong>${val}</strong> isn't in our coverage area yet. <a href="#contact" style="color:#c62828;text-decoration:underline;">Contact us</a> and we'll see what we can do.`;
+  }
+  suggestionsEl.classList.remove("show");
+}
+
+function showPostcodeSuccess(code, area) {
+  resultEl.className = "postcode-result success";
+  resultEl.innerHTML = `✅ <span class="result-code">${code}</span> — Great news! We cover <strong>${area}</strong>. Same-day collection available. <a href="#contact" style="color:#1b5e20;text-decoration:underline;">Get a quote →</a>`;
+}
+
+// ── Form Toast (restored) ───────────────────────
+const contactForm = document.querySelector(".contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Show toast
+    let toast = document.getElementById("form-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "form-toast";
+      toast.style.cssText = `
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+        background: var(--green-deep); color: var(--cream); padding: 18px 32px;
+        border-radius: 999px; font-weight: 600; font-size: 15px; z-index: 9999;
+        box-shadow: 0 14px 40px rgba(15,76,58,0.4); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex; align-items: center; gap: 10px;
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = "✅ Thanks! We'll be in touch within 15 minutes.";
+    toast.style.transform = "translateX(-50%) translateY(0)";
+    setTimeout(() => { toast.style.transform = "translateX(-50%) translateY(100px)"; }, 3500);
+    contactForm.reset();
+  });
+}
 
 // ── Scroll reveal ────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
